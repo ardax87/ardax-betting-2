@@ -1066,6 +1066,7 @@ const App = (() => {
 
   return {
     init, navigateTo, toggleTheme,
+    renderLogin,
     doLogin, togglePassword, acceptDisclaimer, logout,
     selectDay, filterLeague,
     openMatch, closeMatchSheet,
@@ -1075,3 +1076,11 @@ const App = (() => {
     setResult, showToast,
   };
 })();
+
+// Avvio immediato appena il DOM è pronto
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => { App.renderLogin(); App.init(); });
+} else {
+  App.renderLogin();
+  App.init();
+}

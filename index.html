@@ -208,12 +208,6 @@ window.__ENV__ = {
 <script src="/data.js"></script>
 <script src="/app.js"></script>
 <script>
-  // Avvia l'app
-  document.addEventListener('DOMContentLoaded', () => {
-    App.renderLogin && App.renderLogin();
-    App.init();
-  });
-
   // Registra Service Worker per PWA
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
