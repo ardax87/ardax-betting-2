@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#0a1628" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Ardax" />
+  <meta name="description" content="Ardax Football Betting — Analisi AI sui mercati calcistici" />
+  <title>Ardax Football Betting</title>
+  <link rel="manifest" href="/manifest.json" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+
+<!-- ══════════════════════════════════════
+     POPUP DISCLAIMER 18+ (primo accesso)
+══════════════════════════════════════ -->
+<div class="popup-overlay" id="disclaimer-popup" style="display:none">
+  <div class="popup-box">
+    <div class="popup-icon">⚠️</div>
+    <div class="popup-title">Accesso consentito 18+</div>
+    <div class="popup-text">
+      Ardax Football Betting è un servizio di analisi statistica AI.<br><br>
+      Devi avere almeno <strong>18 anni</strong> per accedere.<br>
+      Il gioco d'azzardo può causare dipendenza — gioca responsabilmente.
+    </div>
+    <button class="btn btn-primary btn-block btn-lg" onclick="App.acceptDisclaimer()">
+      ✅ Ho 18+ anni, accetto e continuo
+    </button>
+    <div style="margin-top:12px;font-size:11px;color:var(--text-muted)">
+      Continuando dichiari di avere almeno 18 anni
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     MODAL CREA SCHEDINA (admin)
+══════════════════════════════════════ -->
+<div id="create-schedina-modal" style="display:none;position:fixed;inset:0;z-index:600;background:rgba(0,0,0,0.8);align-items:flex-end">
+  <div style="background:var(--bg-app);border-radius:20px 20px 0 0;width:100%;max-height:85vh;overflow-y:auto;padding:20px 16px 40px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+      <span style="font-size:16px;font-weight:600;color:var(--text-primary)">Crea schedina</span>
+      <button onclick="document.getElementById('create-schedina-modal').style.display='none'" style="background:none;border:none;color:var(--text-muted);font-size:22px;cursor:pointer">×</button>
+    </div>
+    <div id="schedina-builder"></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     TOAST CONTAINER
+══════════════════════════════════════ -->
+<div class="toast-container" id="toast-container"></div>
+
+<!-- ══════════════════════════════════════
+     APP PRINCIPALE
+══════════════════════════════════════ -->
+<div id="app">
+
+  <!-- ── PAGINA LOGIN ── -->
+  <div id="page-login" class="page active">
+    <!-- renderizzata da JS -->
+  </div>
+
+  <!-- ── PAGINA HOME ── -->
+  <div id="page-home" class="page">
+    <div class="top-header">
+      <div class="header-logo">
+        <div class="header-logo-icon"><span>A</span></div>
+        <div>
+          <div class="header-logo-text">ARDAX</div>
+          <div class="header-logo-sub">Football Betting</div>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="header-btn" id="theme-toggle" onclick="App.toggleTheme()" title="Cambia tema">☀️</button>
+      </div>
+    </div>
+
+    <!-- Selettore giorno -->
+    <div id="day-selector" class="day-selector"></div>
+
+    <!-- Filtro campionati -->
+    <div id="filter-bar" class="filter-bar"></div>
+
+    <!-- Partite -->
+    <div id="matches-container" style="padding-bottom:8px"></div>
+
+    <!-- Footer disclaimer -->
+    <div class="footer-disclaimer">
+      <span class="footer-18">18+</span>
+      Analisi AI su base statistica · Gioca responsabilmente
+    </div>
+  </div>
+
+  <!-- ── PAGINA VIP ── -->
+  <div id="page-vip" class="page">
+    <div class="vip-header-banner">
+      <div class="vip-crown">👑</div>
+      <div class="vip-title">SEZIONE VIP</div>
+      <div class="vip-sub">Le giocate con maggiore confidenza AI della giornata</div>
+    </div>
+    <div id="vip-content" style="padding:16px"></div>
+    <div class="footer-disclaimer">
+      <span class="footer-18">18+</span>
+      Analisi AI su base statistica · Gioca responsabilmente
+    </div>
+  </div>
+
+  <!-- ── PAGINA SCHEDINE ── -->
+  <div id="page-schedine" class="page">
+    <div class="top-header">
+      <div class="header-logo">
+        <div style="font-size:18px">📋</div>
+        <div>
+          <div class="header-logo-text">SCHEDINE</div>
+          <div class="header-logo-sub">Consigliate dall'admin</div>
+        </div>
+      </div>
+    </div>
+    <div id="schedine-content" class="page-content"></div>
+    <div class="footer-disclaimer">
+      <span class="footer-18">18+</span>
+      Analisi AI su base statistica · Gioca responsabilmente
+    </div>
+  </div>
+
+  <!-- ── PAGINA ADMIN ── -->
+  <div id="page-admin" class="page">
+    <div class="top-header">
+      <div class="header-logo">
+        <div style="font-size:18px">⚙️</div>
+        <div>
+          <div class="header-logo-text">ADMIN</div>
+          <div class="header-logo-sub">Pannello amministratore</div>
+        </div>
+      </div>
+    </div>
+    <div id="admin-content" class="page-content"></div>
+  </div>
+
+  <!-- ── PAGINA DISCLAIMER ── -->
+  <div id="page-disclaimer" class="page">
+    <div class="top-header">
+      <div class="header-logo">
+        <div style="font-size:18px">⚖️</div>
+        <div>
+          <div class="header-logo-text">GIOCO RESPONSABILE</div>
+          <div class="header-logo-sub">Disclaimer e note legali</div>
+        </div>
+      </div>
+    </div>
+    <div id="disclaimer-content" class="page-content"></div>
+  </div>
+
+</div><!-- /app -->
+
+<!-- ══════════════════════════════════════
+     BOTTOM NAVIGATION
+══════════════════════════════════════ -->
+<nav class="bottom-nav" id="main-nav" style="display:none">
+  <button class="nav-item active" data-nav="home" onclick="App.navigateTo('home')">
+    <span class="nav-icon">🏠</span>
+    <span class="nav-label">Home</span>
+  </button>
+  <button class="nav-item" data-nav="vip" onclick="App.navigateTo('vip')">
+    <span class="nav-icon">👑</span>
+    <span class="nav-label">VIP</span>
+  </button>
+  <button class="nav-item" data-nav="schedine" onclick="App.navigateTo('schedine')">
+    <span class="nav-icon">📋</span>
+    <span class="nav-label">Schedine</span>
+  </button>
+  <button class="nav-item" data-nav="admin" onclick="App.navigateTo('admin')" style="display:none">
+    <span class="nav-icon">⚙️</span>
+    <span class="nav-label">Admin</span>
+  </button>
+  <button class="nav-item" data-nav="disclaimer" onclick="App.navigateTo('disclaimer')">
+    <span class="nav-icon">⚖️</span>
+    <span class="nav-label">Disclaimer</span>
+  </button>
+</nav>
+
+<!-- ══════════════════════════════════════
+     MATCH SHEET (bottom drawer)
+══════════════════════════════════════ -->
+<div class="match-sheet" id="match-sheet">
+  <div class="sheet-backdrop" onclick="App.closeMatchSheet()"></div>
+  <div class="sheet-content" id="match-sheet-content"></div>
+</div>
+
+<!-- ══════════════════════════════════════
+     SCRIPTS
+══════════════════════════════════════ -->
+<!-- Variabili d'ambiente — popolate da Vercel -->
+<script>
+window.__ENV__ = {
+  apiFootball: "",
+  groq: ""
+};
+</script>
+<script src="/config.js"></script>
+<script src="/auth.js"></script>
+<script src="/api.js"></script>
+<script src="/ai.js"></script>
+<script src="/data.js"></script>
+<script src="/app.js"></script>
+<script>
+  // Avvia l'app
+  document.addEventListener('DOMContentLoaded', () => {
+    App.renderLogin && App.renderLogin();
+    App.init();
+  });
+
+  // Registra Service Worker per PWA
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js').catch(() => {});
+    });
+  }
+</script>
+
+</body>
+</html>

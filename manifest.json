@@ -1,0 +1,12 @@
+{
+  "name": "Ardax Football Betting",
+  "short_name": "Ardax",
+  "description": "Analisi AI sui mercati calcistici — 10 campionati",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0a1628",
+  "theme_color": "#0a1628",
+  "categories": ["sports", "entertainment"],
+  "lang": "it"
+}
