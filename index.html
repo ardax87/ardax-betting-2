@@ -27,7 +27,7 @@
       Devi avere almeno <strong>18 anni</strong> per accedere.<br>
       Il gioco d'azzardo può causare dipendenza — gioca responsabilmente.
     </div>
-    <button class="btn btn-primary btn-block btn-lg" onclick="App.acceptDisclaimer()">
+    <button class="btn btn-primary btn-block btn-lg" onclick="acceptDisclaimer18()">
       ✅ Ho 18+ anni, accetto e continuo
     </button>
     <div style="margin-top:12px;font-size:11px;color:var(--text-muted)">
@@ -91,6 +91,18 @@
 </div>
 
 <script>
+function acceptDisclaimer18() {
+  localStorage.setItem('ardax_disclaimer_accepted', '1');
+  document.getElementById('disclaimer-popup').style.display = 'none';
+  document.getElementById('page-login').style.display = 'none';
+  document.getElementById('page-login').classList.remove('active');
+  document.getElementById('main-nav').style.display = 'flex';
+  document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('active'); });
+  document.getElementById('page-home').classList.add('active');
+  document.getElementById('page-home').style.display = 'flex';
+  if (typeof App !== 'undefined') { App.navigateTo('home'); }
+}
+
 function doLogin() {
   var username = document.getElementById('login-user').value.trim();
   var password = document.getElementById('login-pass').value;
@@ -107,11 +119,17 @@ function doLogin() {
     return;
   }
   errEl.style.display = 'none';
+  // Nascondi pagina login
+  document.getElementById('page-login').style.display = 'none';
+  document.getElementById('page-login').classList.remove('active');
   if (!localStorage.getItem('ardax_disclaimer_accepted')) {
     document.getElementById('disclaimer-popup').style.display = 'flex';
   } else {
     document.getElementById('main-nav').style.display = 'flex';
-    if (typeof App !== 'undefined') { App.navigateTo('home'); App.loadHomePage && App.loadHomePage(); }
+    document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('active'); });
+    document.getElementById('page-home').classList.add('active');
+    document.getElementById('page-home').style.display = 'flex';
+    if (typeof App !== 'undefined') { App.navigateTo('home'); }
   }
 }
 </script></div>
