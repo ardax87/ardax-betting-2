@@ -91,16 +91,49 @@
 </div>
 
 <script>
+function showApp() {
+  // Nascondi login completamente
+  var loginPage = document.getElementById('page-login');
+  loginPage.style.display = 'none';
+  loginPage.classList.remove('active');
+  loginPage.style.visibility = 'hidden';
+  loginPage.style.position = 'absolute';
+  loginPage.style.zIndex = '-1';
+
+  // Mostra nav
+  document.getElementById('main-nav').style.display = 'flex';
+
+  // Mostra home
+  document.querySelectorAll('.page').forEach(function(p) {
+    p.classList.remove('active');
+    p.style.display = 'none';
+  });
+  var homePage = document.getElementById('page-home');
+  homePage.classList.add('active');
+  homePage.style.display = 'flex';
+
+  // Aggiorna nav
+  document.querySelectorAll('.nav-item').forEach(function(n) { n.classList.remove('active'); });
+  var homeNav = document.querySelector('[data-nav="home"]');
+  if (homeNav) homeNav.classList.add('active');
+
+  // Nascondi admin se non admin
+  var adminNav = document.querySelector('[data-nav="admin"]');
+  if (adminNav) {
+    var session = JSON.parse(sessionStorage.getItem('ardax_session') || 'null');
+    adminNav.style.display = (session && session.role === 'admin') ? 'flex' : 'none';
+  }
+
+  // Carica il palinsesto
+  if (typeof App !== 'undefined' && App.loadHomePage) {
+    App.loadHomePage();
+  }
+}
+
 function acceptDisclaimer18() {
   localStorage.setItem('ardax_disclaimer_accepted', '1');
   document.getElementById('disclaimer-popup').style.display = 'none';
-  document.getElementById('page-login').style.display = 'none';
-  document.getElementById('page-login').classList.remove('active');
-  document.getElementById('main-nav').style.display = 'flex';
-  document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('active'); });
-  document.getElementById('page-home').classList.add('active');
-  document.getElementById('page-home').style.display = 'flex';
-  if (typeof App !== 'undefined') { App.navigateTo('home'); }
+  showApp();
 }
 
 function doLogin() {
@@ -119,181 +152,12 @@ function doLogin() {
     return;
   }
   errEl.style.display = 'none';
-  // Nascondi pagina login
-  document.getElementById('page-login').style.display = 'none';
-  document.getElementById('page-login').classList.remove('active');
   if (!localStorage.getItem('ardax_disclaimer_accepted')) {
     document.getElementById('disclaimer-popup').style.display = 'flex';
   } else {
-    document.getElementById('main-nav').style.display = 'flex';
-    document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('active'); });
-    document.getElementById('page-home').classList.add('active');
-    document.getElementById('page-home').style.display = 'flex';
-    if (typeof App !== 'undefined') { App.navigateTo('home'); }
+    showApp();
   }
 }
-</script></div>
-
-  <!-- ── PAGINA HOME ── -->
-  <div id="page-home" class="page">
-    <div class="top-header">
-      <div class="header-logo">
-        <div class="header-logo-icon"><span>A</span></div>
-        <div>
-          <div class="header-logo-text">ARDAX</div>
-          <div class="header-logo-sub">Football Betting</div>
-        </div>
-      </div>
-      <div class="header-actions">
-        <button class="header-btn" id="theme-toggle" onclick="App.toggleTheme()" title="Cambia tema">☀️</button>
-      </div>
-    </div>
-
-    <!-- Selettore giorno -->
-    <div id="day-selector" class="day-selector"></div>
-
-    <!-- Filtro campionati -->
-    <div id="filter-bar" class="filter-bar"></div>
-
-    <!-- Partite -->
-    <div id="matches-container" style="padding-bottom:8px"></div>
-
-    <!-- Footer disclaimer -->
-    <div class="footer-disclaimer">
-      <span class="footer-18">18+</span>
-      Analisi AI su base statistica · Gioca responsabilmente
-    </div>
-  </div>
-
-  <!-- ── PAGINA VIP ── -->
-  <div id="page-vip" class="page">
-    <div class="vip-header-banner">
-      <div class="vip-crown">👑</div>
-      <div class="vip-title">SEZIONE VIP</div>
-      <div class="vip-sub">Le giocate con maggiore confidenza AI della giornata</div>
-    </div>
-    <div id="vip-content" style="padding:16px"></div>
-    <div class="footer-disclaimer">
-      <span class="footer-18">18+</span>
-      Analisi AI su base statistica · Gioca responsabilmente
-    </div>
-  </div>
-
-  <!-- ── PAGINA SCHEDINE ── -->
-  <div id="page-schedine" class="page">
-    <div class="top-header">
-      <div class="header-logo">
-        <div style="font-size:18px">📋</div>
-        <div>
-          <div class="header-logo-text">SCHEDINE</div>
-          <div class="header-logo-sub">Consigliate dall'admin</div>
-        </div>
-      </div>
-    </div>
-    <div id="schedine-content" class="page-content"></div>
-    <div class="footer-disclaimer">
-      <span class="footer-18">18+</span>
-      Analisi AI su base statistica · Gioca responsabilmente
-    </div>
-  </div>
-
-  <!-- ── PAGINA ADMIN ── -->
-  <div id="page-admin" class="page">
-    <div class="top-header">
-      <div class="header-logo">
-        <div style="font-size:18px">⚙️</div>
-        <div>
-          <div class="header-logo-text">ADMIN</div>
-          <div class="header-logo-sub">Pannello amministratore</div>
-        </div>
-      </div>
-    </div>
-    <div id="admin-content" class="page-content"></div>
-  </div>
-
-  <!-- ── PAGINA DISCLAIMER ── -->
-  <div id="page-disclaimer" class="page">
-    <div class="top-header">
-      <div class="header-logo">
-        <div style="font-size:18px">⚖️</div>
-        <div>
-          <div class="header-logo-text">GIOCO RESPONSABILE</div>
-          <div class="header-logo-sub">Disclaimer e note legali</div>
-        </div>
-      </div>
-    </div>
-    <div id="disclaimer-content" class="page-content"></div>
-  </div>
-
-</div><!-- /app -->
-
-<!-- ══════════════════════════════════════
-     BOTTOM NAVIGATION
-══════════════════════════════════════ -->
-<nav class="bottom-nav" id="main-nav" style="display:none">
-  <button class="nav-item active" data-nav="home" onclick="App.navigateTo('home')">
-    <span class="nav-icon">🏠</span>
-    <span class="nav-label">Home</span>
-  </button>
-  <button class="nav-item" data-nav="vip" onclick="App.navigateTo('vip')">
-    <span class="nav-icon">👑</span>
-    <span class="nav-label">VIP</span>
-  </button>
-  <button class="nav-item" data-nav="schedine" onclick="App.navigateTo('schedine')">
-    <span class="nav-icon">📋</span>
-    <span class="nav-label">Schedine</span>
-  </button>
-  <button class="nav-item" data-nav="admin" onclick="App.navigateTo('admin')" style="display:none">
-    <span class="nav-icon">⚙️</span>
-    <span class="nav-label">Admin</span>
-  </button>
-  <button class="nav-item" data-nav="disclaimer" onclick="App.navigateTo('disclaimer')">
-    <span class="nav-icon">⚖️</span>
-    <span class="nav-label">Disclaimer</span>
-  </button>
-</nav>
-
-<!-- ══════════════════════════════════════
-     MATCH SHEET (bottom drawer)
-══════════════════════════════════════ -->
-<div class="match-sheet" id="match-sheet">
-  <div class="sheet-backdrop" onclick="App.closeMatchSheet()"></div>
-  <div class="sheet-content" id="match-sheet-content"></div>
-</div>
-
-<!-- ══════════════════════════════════════
-     SCRIPTS
-══════════════════════════════════════ -->
-<!-- Variabili d'ambiente — popolate da Vercel -->
-<script>
-window.__ENV__ = {
-  apiFootball: "",
-  groq: ""
-};
-</script>
-<script src="/config.js"></script>
-<script src="/auth.js"></script>
-<script src="/api.js"></script>
-<script src="/ai.js"></script>
-<script src="/data.js"></script>
-<script src="/app.js"></script>
-<script>
-  window.addEventListener('load', function() {
-    try {
-      if (typeof App !== 'undefined') {
-        App.renderLogin();
-        App.init();
-      } else {
-        document.getElementById('page-login').innerHTML = '<div style="padding:40px;text-align:center;color:#e24b4a;font-family:Arial">Errore: app.js non caricato</div>';
-      }
-    } catch(e) {
-      document.getElementById('page-login').innerHTML = '<div style="padding:40px;text-align:center;color:#e24b4a;font-family:Arial">Errore: ' + e.message + '</div>';
-    }
-  });
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/sw.js').catch(function(){});
-  }
 </script>
 
 </body>
-</html>
