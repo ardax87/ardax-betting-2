@@ -208,11 +208,20 @@ window.__ENV__ = {
 <script src="/data.js"></script>
 <script src="/app.js"></script>
 <script>
-  // Registra Service Worker per PWA
+  window.addEventListener('load', function() {
+    try {
+      if (typeof App !== 'undefined') {
+        App.renderLogin();
+        App.init();
+      } else {
+        document.getElementById('page-login').innerHTML = '<div style="padding:40px;text-align:center;color:#e24b4a;font-family:Arial">Errore: app.js non caricato</div>';
+      }
+    } catch(e) {
+      document.getElementById('page-login').innerHTML = '<div style="padding:40px;text-align:center;color:#e24b4a;font-family:Arial">Errore: ' + e.message + '</div>';
+    }
+  });
   if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/sw.js').catch(() => {});
-    });
+    navigator.serviceWorker.register('/sw.js').catch(function(){});
   }
 </script>
 
