@@ -13,58 +13,42 @@
 </head>
 <body>
 
-<!-- POPUP DISCLAIMER 18+ -->
 <div class="popup-overlay" id="disclaimer-popup" style="display:none">
   <div class="popup-box">
-    <div class="popup-icon">&#9888;&#65039;</div>
+    <div class="popup-icon">&#9888;</div>
     <div class="popup-title">Accesso consentito 18+</div>
-    <div class="popup-text">
-      Ardax Football Betting &egrave; un servizio di analisi statistica AI.<br><br>
-      Devi avere almeno <strong>18 anni</strong> per accedere.<br>
-      Il gioco d'azzardo pu&ograve; causare dipendenza &mdash; gioca responsabilmente.
-    </div>
-    <button class="btn btn-primary btn-block btn-lg" onclick="App.acceptDisclaimer()">
-      &#9989; Ho 18+ anni, accetto e continuo
-    </button>
+    <div class="popup-text">Ardax Football Betting e' un servizio di analisi statistica AI.<br><br>Devi avere almeno <strong>18 anni</strong> per accedere. Il gioco d'azzardo puo' causare dipendenza.</div>
+    <button class="btn btn-primary btn-block btn-lg" onclick="accettaDisclaimer()">Ho 18+ anni, accetto e continuo</button>
   </div>
 </div>
 
-<!-- MODAL CREA SCHEDINA -->
 <div id="create-schedina-modal" style="display:none;position:fixed;inset:0;z-index:600;background:rgba(0,0,0,0.8);align-items:flex-end">
   <div style="background:var(--bg-app);border-radius:20px 20px 0 0;width:100%;max-height:85vh;overflow-y:auto;padding:20px 16px 40px">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
       <span style="font-size:16px;font-weight:600;color:var(--text-primary)">Crea schedina</span>
-      <button onclick="document.getElementById('create-schedina-modal').style.display='none'" style="background:none;border:none;color:var(--text-muted);font-size:22px;cursor:pointer">&#215;</button>
+      <button onclick="document.getElementById('create-schedina-modal').style.display='none'" style="background:none;border:none;color:var(--text-muted);font-size:22px;cursor:pointer">X</button>
     </div>
     <div id="schedina-builder"></div>
   </div>
 </div>
 
-<!-- TOAST -->
 <div class="toast-container" id="toast-container"></div>
 
-<!-- APP -->
 <div id="app">
   <div id="page-home" class="page active">
     <div class="top-header">
       <div class="header-logo">
         <div class="header-logo-icon"><span>A</span></div>
-        <div>
-          <div class="header-logo-text">ARDAX</div>
-          <div class="header-logo-sub">Football Betting</div>
-        </div>
+        <div><div class="header-logo-text">ARDAX</div><div class="header-logo-sub">Football Betting</div></div>
       </div>
       <div class="header-actions">
-        <button class="header-btn" id="theme-toggle" onclick="App.toggleTheme()" title="Cambia tema">&#9728;&#65039;</button>
+        <button class="header-btn" id="theme-toggle" onclick="App.toggleTheme()">&#9728;</button>
       </div>
     </div>
     <div id="day-selector" class="day-selector"></div>
     <div id="filter-bar" class="filter-bar"></div>
     <div id="matches-container" style="padding-bottom:8px"></div>
-    <div class="footer-disclaimer">
-      <span class="footer-18">18+</span>
-      Analisi AI su base statistica &middot; Gioca responsabilmente
-    </div>
+    <div class="footer-disclaimer"><span class="footer-18">18+</span> Analisi AI su base statistica &middot; Gioca responsabilmente</div>
   </div>
 
   <div id="page-vip" class="page">
@@ -74,37 +58,25 @@
       <div class="vip-sub">Le giocate con maggiore confidenza AI della giornata</div>
     </div>
     <div id="vip-content" style="padding:16px"></div>
-    <div class="footer-disclaimer">
-      <span class="footer-18">18+</span>
-      Analisi AI su base statistica &middot; Gioca responsabilmente
-    </div>
+    <div class="footer-disclaimer"><span class="footer-18">18+</span> Analisi AI su base statistica &middot; Gioca responsabilmente</div>
   </div>
 
   <div id="page-schedine" class="page">
     <div class="top-header">
       <div class="header-logo">
         <div style="font-size:18px">&#128203;</div>
-        <div>
-          <div class="header-logo-text">SCHEDINE</div>
-          <div class="header-logo-sub">Consigliate dall'admin</div>
-        </div>
+        <div><div class="header-logo-text">SCHEDINE</div><div class="header-logo-sub">Consigliate dall'admin</div></div>
       </div>
     </div>
     <div id="schedine-content" class="page-content"></div>
-    <div class="footer-disclaimer">
-      <span class="footer-18">18+</span>
-      Analisi AI su base statistica &middot; Gioca responsabilmente
-    </div>
+    <div class="footer-disclaimer"><span class="footer-18">18+</span> Analisi AI su base statistica &middot; Gioca responsabilmente</div>
   </div>
 
   <div id="page-admin" class="page">
     <div class="top-header">
       <div class="header-logo">
-        <div style="font-size:18px">&#9881;&#65039;</div>
-        <div>
-          <div class="header-logo-text">ADMIN</div>
-          <div class="header-logo-sub">Pannello amministratore</div>
-        </div>
+        <div style="font-size:18px">&#9881;</div>
+        <div><div class="header-logo-text">ADMIN</div><div class="header-logo-sub">Pannello amministratore</div></div>
       </div>
     </div>
     <div id="admin-content" class="page-content"></div>
@@ -113,51 +85,28 @@
   <div id="page-disclaimer" class="page">
     <div class="top-header">
       <div class="header-logo">
-        <div style="font-size:18px">&#9878;&#65039;</div>
-        <div>
-          <div class="header-logo-text">GIOCO RESPONSABILE</div>
-          <div class="header-logo-sub">Disclaimer e note legali</div>
-        </div>
+        <div style="font-size:18px">&#9878;</div>
+        <div><div class="header-logo-text">GIOCO RESPONSABILE</div><div class="header-logo-sub">Disclaimer e note legali</div></div>
       </div>
     </div>
     <div id="disclaimer-content" class="page-content"></div>
   </div>
 </div>
 
-<!-- BOTTOM NAV -->
 <nav class="bottom-nav" id="main-nav">
-  <button class="nav-item active" data-nav="home" onclick="App.navigateTo('home')">
-    <span class="nav-icon">&#127968;</span>
-    <span class="nav-label">Home</span>
-  </button>
-  <button class="nav-item" data-nav="vip" onclick="App.navigateTo('vip')">
-    <span class="nav-icon">&#128081;</span>
-    <span class="nav-label">VIP</span>
-  </button>
-  <button class="nav-item" data-nav="schedine" onclick="App.navigateTo('schedine')">
-    <span class="nav-icon">&#128203;</span>
-    <span class="nav-label">Schedine</span>
-  </button>
-  <button class="nav-item" data-nav="admin" onclick="App.navigateTo('admin')" style="display:none">
-    <span class="nav-icon">&#9881;&#65039;</span>
-    <span class="nav-label">Admin</span>
-  </button>
-  <button class="nav-item" data-nav="disclaimer" onclick="App.navigateTo('disclaimer')">
-    <span class="nav-icon">&#9878;&#65039;</span>
-    <span class="nav-label">Disclaimer</span>
-  </button>
+  <button class="nav-item active" data-nav="home" onclick="App.navigateTo('home')"><span class="nav-icon">&#127968;</span><span class="nav-label">Home</span></button>
+  <button class="nav-item" data-nav="vip" onclick="App.navigateTo('vip')"><span class="nav-icon">&#128081;</span><span class="nav-label">VIP</span></button>
+  <button class="nav-item" data-nav="schedine" onclick="App.navigateTo('schedine')"><span class="nav-icon">&#128203;</span><span class="nav-label">Schedine</span></button>
+  <button class="nav-item" data-nav="admin" onclick="App.navigateTo('admin')" style="display:none"><span class="nav-icon">&#9881;</span><span class="nav-label">Admin</span></button>
+  <button class="nav-item" data-nav="disclaimer" onclick="App.navigateTo('disclaimer')"><span class="nav-icon">&#9878;</span><span class="nav-label">Disclaimer</span></button>
 </nav>
 
-<!-- MATCH SHEET -->
 <div class="match-sheet" id="match-sheet">
   <div class="sheet-backdrop" onclick="App.closeMatchSheet()"></div>
   <div class="sheet-content" id="match-sheet-content"></div>
 </div>
 
-<!-- SCRIPTS -->
-<script>
-window.__ENV__ = { apiFootball: "", groq: "" };
-</script>
+<script>window.__ENV__ = { apiFootball: "", groq: "" };</script>
 <script src="/config.js"></script>
 <script src="/auth.js"></script>
 <script src="/api.js"></script>
@@ -165,24 +114,69 @@ window.__ENV__ = { apiFootball: "", groq: "" };
 <script src="/data.js"></script>
 <script src="/app.js"></script>
 <script>
-  // Controlla se loggato
-  if (!Auth.isLoggedIn()) {
-    window.location.href = '/index.html';
-  } else {
-    // Avvia app
-    var session = Auth.getSession();
-    // Mostra admin nav se admin
-    var adminNav = document.querySelector('[data-nav="admin"]');
-    if (adminNav && session && session.role === 'admin') {
-      adminNav.style.display = 'flex';
+  Auth.init();
+
+  if (!Auth.isLoggedIn()) { window.location.href = '/index.html'; }
+
+  var _t = localStorage.getItem('ardax_theme') || 'dark';
+  if (_t === 'light') document.body.classList.add('light-mode');
+
+  var _s = Auth.getSession();
+  var _an = document.querySelector('[data-nav="admin"]');
+  if (_an && _s && _s.role === 'admin') { _an.style.display = 'flex'; }
+
+  function renderDays() {
+    var el = document.getElementById('day-selector');
+    if (!el) return;
+    var today = new Date();
+    var names = ['DOM','LUN','MAR','MER','GIO','VEN','SAB'];
+    var html = '';
+    for (var i = 0; i < 4; i++) {
+      var d = new Date(today);
+      d.setDate(today.getDate() + i);
+      html += '<div class="day-btn ' + (i===0?'active':'') + '" onclick="App.selectDay(' + d.getTime() + ')">' +
+        '<div class="day-name">' + (i===0?'OGGI':names[d.getDay()]) + '</div>' +
+        '<div class="day-num">' + d.getDate() + '</div></div>';
     }
-    // Carica home
-    App.loadHomePage();
+    el.innerHTML = html;
   }
 
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/sw.js').catch(function(){});
+  function renderFilter() {
+    var el = document.getElementById('filter-bar');
+    if (!el) return;
+    var html = '<div class="filter-chip active" onclick="App.filterLeague(\'all\')">Tutti</div>';
+    ARDAX_CONFIG.leagues.forEach(function(l) {
+      html += '<div class="filter-chip" onclick="App.filterLeague(\'' + l.name + '\')">' + l.flag + ' ' + l.name + '</div>';
+    });
+    el.innerHTML = html;
   }
+
+  function accettaDisclaimer() {
+    localStorage.setItem('ardax_disclaimer_accepted', '1');
+    document.getElementById('disclaimer-popup').style.display = 'none';
+    avviaApp();
+  }
+
+  function avviaApp() {
+    renderDays();
+    renderFilter();
+    var mc = document.getElementById('matches-container');
+    if (mc) mc.innerHTML = '<div style="padding:32px;text-align:center"><div class="spinner"></div><div style="margin-top:12px;font-size:13px;color:var(--text-muted)">Caricamento partite...</div></div>';
+    try { App.loadHomePage(); } catch(e) {
+      console.error(e);
+      if (mc) mc.innerHTML = '<div class="empty-state"><div class="empty-icon">&#9917;</div><div class="empty-title">Nessuna partita</div><div class="empty-sub">Inserisci la API key di API-Football</div></div>';
+    }
+  }
+
+  if (Auth.isLoggedIn()) {
+    if (!localStorage.getItem('ardax_disclaimer_accepted')) {
+      document.getElementById('disclaimer-popup').style.display = 'flex';
+    } else {
+      avviaApp();
+    }
+  }
+
+  if ('serviceWorker' in navigator) { navigator.serviceWorker.register('/sw.js').catch(function(){}); }
 </script>
 </body>
 </html>
