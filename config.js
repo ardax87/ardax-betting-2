@@ -10,7 +10,7 @@ const ARDAX_CONFIG = {
   // Chiavi impostate su Vercel > Settings > Environment Variables
   // Nome variabile: API_FOOTBALL_KEY e GROQ_KEY
   apiFootballKey: window.__ENV__?.apiFootball || "564a84f17e7bd7af36b03d07c23364d7",
-  groqKey: window.__ENV__?.groq || "",
+  groqKey: window.__ENV__?.groq || "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",
 
   leagues: [
     { id: 135, name: "Serie A",        country: "Italia",      flag: "\uD83C\uDDEE\uD83C\uDDF9", csvCode: "I1"  },
