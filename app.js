@@ -1077,10 +1077,4 @@ const App = (() => {
   };
 })();
 
-// Avvio immediato appena il DOM è pronto
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', () => { App.renderLogin(); App.init(); });
-} else {
-  App.renderLogin();
-  App.init();
-}
+// Avvio gestito da app.html

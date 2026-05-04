@@ -66,7 +66,7 @@ const Auth = (() => {
 
   // ── LOGOUT ──
   function logout() {
-    sessionStorage.removeItem(SESSION_KEY);
+    sessionStorage.removeItem(SESSION_KEY); window.location.href = '/index.html';
   }
 
   // ── SESSIONE CORRENTE ──
