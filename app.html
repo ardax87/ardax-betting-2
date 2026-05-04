@@ -162,11 +162,17 @@
     renderFilter();
     var mc = document.getElementById('matches-container');
     if (mc) mc.innerHTML = '<div style="padding:32px;text-align:center"><div class="spinner"></div><div style="margin-top:12px;font-size:13px;color:var(--text-muted)">Caricamento partite...</div></div>';
-    try { App.loadHomePage(); } catch(e) {
-      console.error(e);
-      if (mc) mc.innerHTML = '<div class="empty-state"><div class="empty-icon">&#9917;</div><div class="empty-title">Nessuna partita</div><div class="empty-sub">Inserisci la API key di API-Football</div></div>';
-    }
+    try {
+  if(typeof App !== 'undefined' && typeof App.loadHomePage === 'function') {
+    App.loadHomePage();
+  } else {
+    console.error('App.loadHomePage non disponibile - versione app.js:', typeof App);
+    if (mc) mc.innerHTML = '<div class="empty-state"><div class="empty-icon">&#9917;</div><div class="empty-title">Caricamento...</div><div class="empty-sub">Ricarica la pagina</div></div>';
   }
+} catch(e) {
+  console.error(e);
+  if (mc) mc.innerHTML = '<div class="empty-state"><div class="empty-icon">&#9917;</div><div class="empty-title">Errore</div><div class="empty-sub">' + e.message + '</div></div>';
+}
 
   if (Auth.isLoggedIn()) {
     if (!localStorage.getItem('ardax_disclaimer_accepted')) {
