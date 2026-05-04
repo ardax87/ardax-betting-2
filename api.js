@@ -68,11 +68,10 @@ const FootballAPI = (() => {
   async function getFixturesByDate(date) {
     // date formato: YYYY-MM-DD
     const leagueIds = ARDAX_CONFIG.leagues.map(l => l.id);
-    const season = ARDAX_CONFIG.currentSeason;
 
     const results = await Promise.all(
       leagueIds.map(leagueId =>
-        call('/fixtures', { date, league: leagueId, season })
+        call('/fixtures', { date, league: leagueId })
       )
     );
 
