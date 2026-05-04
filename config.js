@@ -42,7 +42,7 @@ const ARDAX_CONFIG = {
 
   adminUsername: "admin",
   adminPassword: "ardax2025admin",
-  currentSeason: 2024,
+  currentSeason: 2025,
   groqModel: "llama-3.3-70b-versatile",
   vipConfidenceThreshold: 75,
   daysRange: 4,
