@@ -69,6 +69,10 @@
 <script src="/config.js"></script>
 <script src="/auth.js"></script>
 <script>
+  // Inizializza utenti di default
+  Auth.init();
+</script>
+<script>
   // Se gia loggato vai direttamente all app
   if (Auth.isLoggedIn()) {
     window.location.href = '/app.html';
